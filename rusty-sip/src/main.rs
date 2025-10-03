@@ -28,21 +28,29 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let connection = Connection::session().await?;
     let proxy = NotificationsProxy::new(&connection).await?;
 
+    // Notification interval
+    let interval = Duration::from_secs(1800); // 30 minutes
+
+    // message
+    let message = "Hey Buddy! 30 minutes have passed, Take a water break";
+
     loop {
-        let reply = proxy
+        let _reply = proxy
             .notify(
                 "RustySip",
                 0,
                 "dialog-information",
                 "⏰ Reminder",
-                "Hey Kartik! 30 minutes have passed, Take a water break",
+                // message
+                message,
                 &[],
                 HashMap::new(),
                 30000, // 30 seconds
             )
             .await?;
-
-        sleep(Duration::from_secs(1800)).await; // 30 minutes
+        
+        // duration
+        sleep(interval).await;
 
     }
 }
