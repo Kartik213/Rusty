@@ -35,6 +35,9 @@ async fn main() -> Result<(), Box<dyn Error>> {
     let message = "Hey Buddy! 30 minutes have passed, Take a water break";
 
     loop {
+
+        sleep(interval).await;
+
         let _reply = proxy
             .notify(
                 "RustySip",
@@ -49,8 +52,5 @@ async fn main() -> Result<(), Box<dyn Error>> {
             )
             .await?;
         
-        // duration
-        sleep(interval).await;
-
     }
 }
